@@ -1,3 +1,4 @@
-web gunicorn select_rss:app
+web: gunicorn app:app --log-file=-
+
 
 
