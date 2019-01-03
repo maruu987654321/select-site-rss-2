@@ -1,0 +1,10 @@
+etsy_py==1.0.0
+amazonscraper==0.1.0
+feedgenerator==1.9
+requests==2.18.4
+httplib2==0.12.0
+Flask==0.10.1
+feedparser==5.2.1
+imgurpython==1.1.7
+google_api_python_client==1.7.7
+beautifulsoup4==4.7.0
