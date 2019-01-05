@@ -202,43 +202,7 @@ def get_rss_teepublic(key_words):
     file_metadata = {'name': 'rss_by_keywords_teepublic.rss'}
     media = MediaFileUpload('rss_by_keywords_teepublic.rss', mimetype='text/plain',resumable=True)
     fili = service.files().create(body=file_metadata, media_body=media, fields='id').execute() 
-def get_rss_amazon(key_words):
-    store = file.Storage('token.json')
-    creds = store.get()
-    if not creds or creds.invalid:
-        flow = client.flow_from_clientsecrets('credentials.json', SCOPES)
-        creds = tools.run_flow(flow, store)
-    service = build('drive', 'v3', http=creds.authorize(Http()))
-    title_list = []
-    list_rating = []
-    list_review = []
-    list_url = [] 
-    for i in key_words:
-        results = amazonscraper.search(i)
-
-        for result in results:
-            title_list.append(result.title)
-            list_rating.append(result.rating)
-            list_review.append(result.review_nb)
-            list_url.append(result.url)
-
-    result = zip(title_list, list_rating, list_review, list_url)  
-    feed = feedgenerator.Rss201rev2Feed(title="all events",
-            link="https://www.amazon.com/",
-            description="New in amazon",
-            language="en")
-    for info in result:
-        feed.add_item(
-                title=info[0],
-                link=info[3],
-                description=info[1],
-                unique_id='no'
-            )
-    with open('rss_by_keywords_amazon.rss', 'w') as fp:
-        feed.write(fp, 'utf-8')
-    file_metadata = {'name': 'rss_by_keywords_amazon.rss'}
-    media = MediaFileUpload('rss_by_keywords_amazon.rss', mimetype='text/plain',resumable=True)
-    fili = service.files().create(body=file_metadata, media_body=media, fields='id').execute()  
+  
 def get_rss_imgur(key_words):
     store = file.Storage('token.json')
     creds = store.get()
@@ -351,8 +315,6 @@ def test():
         get_rss_etsy(key_words)
     elif select == 'teepublic':
         get_rss_teepublic(key_words)
-    elif select == 'amazon':
-        get_rss_amazon(key_words)
     elif select == 'imgur':
         get_rss_imgur(key_words)
     return 'You get rss for site: {0} by such keywords as: {1}'.format(select, text)
