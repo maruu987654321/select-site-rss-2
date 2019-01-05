@@ -117,7 +117,7 @@ def get_rss_amazon(key_words):
     list_review = []
     list_url = [] 
     for i in key_words:
-        print(list(amazonscraper.search(i))
+        print(list(amazonscraper.search(i)))
 
       
 
