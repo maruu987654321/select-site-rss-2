@@ -106,6 +106,7 @@ def get_rss_redbubble(key_words):
     media = MediaFileUpload('rss_by_keywords_for_redbubble.rss', mimetype='text/plain',resumable=True)
     fili = service.files().create(body=file_metadata, media_body=media, fields='id').execute()  
 def get_rss_amazon(key_words):
+    print(key_words)
     store = file.Storage('token.json')
     creds = store.get()
     if not creds or creds.invalid:
