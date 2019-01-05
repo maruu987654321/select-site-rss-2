@@ -118,7 +118,7 @@ def get_rss_amazon(key_words):
     list_review = []
     list_url = [] 
     for i in key_words:
-        print(i)
+        print(amazonscraper.search(i))
            
 def get_rss_etsy(key_words):
     store = file.Storage('token.json')
