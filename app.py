@@ -106,7 +106,6 @@ def get_rss_redbubble(key_words):
     media = MediaFileUpload('rss_by_keywords_for_redbubble.rss', mimetype='text/plain',resumable=True)
     fili = service.files().create(body=file_metadata, media_body=media, fields='id').execute()  
 def get_rss_amazon(key_words):
-    print(key_words)
     store = file.Storage('token.json')
     creds = store.get()
     if not creds or creds.invalid:
@@ -117,11 +116,32 @@ def get_rss_amazon(key_words):
     list_rating = []
     list_review = []
     list_url = [] 
-    results = amazonscraper.search("Python programming")
+    for i in key_words:
+        results = amazonscraper.search(i)
 
-    for result in results:
-        print("{} [ASIN = {}] ({} out of 5 stars, {} customer reviews) :  {}".format(
-    	    result.title, result.asin, result.rating, result.review_nb, result.url))
+        for result in results:
+            title_list.append(result.title)
+            list_rating.append(result.rating)
+            list_review.append(result.review_nb)
+            list_url.append(result.url)
+
+    result = zip(title_list, list_rating, list_review, list_url)  
+    feed = feedgenerator.Rss201rev2Feed(title="all events",
+            link="https://www.amazon.com/",
+            description="New in amazon",
+            language="en")
+    for info in result:
+        feed.add_item(
+                title=info[0],
+                link=info[3],
+                description=info[1],
+                unique_id='no'
+            )
+    with open('rss_by_keywords_amazon.rss', 'w') as fp:
+        feed.write(fp, 'utf-8')
+    file_metadata = {'name': 'rss_by_keywords_amazon.rss'}
+    media = MediaFileUpload('rss_by_keywords_amazon.rss', mimetype='text/plain',resumable=True)
+    fili = service.files().create(body=file_metadata, media_body=media, fields='id').execute()
 
            
 def get_rss_etsy(key_words):
