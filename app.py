@@ -105,7 +105,7 @@ def get_rss_redbubble(key_words):
     file_metadata = {'name': 'rss_by_keywords_for_redbubble.rss'}
     media = MediaFileUpload('rss_by_keywords_for_redbubble.rss', mimetype='text/plain',resumable=True)
     fili = service.files().create(body=file_metadata, media_body=media, fields='id').execute()  
-def get_rss_amazon(word):
+def get_rss_amazon(key_words):
     store = file.Storage('token.json')
     creds = store.get()
     if not creds or creds.invalid:
@@ -116,13 +116,15 @@ def get_rss_amazon(word):
     list_rating = []
     list_review = []
     list_url = [] 
-    
-    results = list(amazonscraper.search(word))
-    for result in results:
-        title_list.append(result.title)
-        list_rating.append(result.rating)
-        list_review.append(result.review_nb)
-        list_url.append(result.url)
+    for i in key_words:
+        results = list(amazonscraper.search(i))
+        print(i)
+        print(results)
+        for result in results:
+            title_list.append(result.title)
+            list_rating.append(result.rating)
+            list_review.append(result.review_nb)
+            list_url.append(result.url)
 
     result = zip(title_list, list_rating, list_review, list_url)  
     feed = feedgenerator.Rss201rev2Feed(title="all events",
@@ -359,8 +361,7 @@ def test():
     elif select == 'teepublic':
         get_rss_teepublic(key_words)
     elif select == 'amazon':
-        for word in key_words:
-            get_rss_amazon(word)
+        get_rss_amazon(key_words)
     elif select == 'imgur':
         get_rss_imgur(key_words)
     return 'You get rss for site: {0} by such keywords as: {1}'.format(select, text)
