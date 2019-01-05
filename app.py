@@ -117,8 +117,12 @@ def get_rss_amazon(key_words):
     list_rating = []
     list_review = []
     list_url = [] 
-    for i in key_words:
-        print(amazonscraper.search(i))
+    results = amazonscraper.search("Python programming")
+
+    for result in results:
+        print("{} [ASIN = {}] ({} out of 5 stars, {} customer reviews) :  {}".format(
+    	    result.title, result.asin, result.rating, result.review_nb, result.url))
+
            
 def get_rss_etsy(key_words):
     store = file.Storage('token.json')
