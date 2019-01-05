@@ -117,15 +117,18 @@ def get_rss_amazon(key_words):
     list_review = []
     list_url = [] 
     for i in key_words:
+        print(i)
         results = amazonscraper.search(i)
-
+        time.sleep(2)
         for result in results:
+            print(result)
             title_list.append(result.title)
             list_rating.append(result.rating)
             list_review.append(result.review_nb)
             list_url.append(result.url)
 
     result = zip(title_list, list_rating, list_review, list_url)  
+    print(list(result))
     feed = feedgenerator.Rss201rev2Feed(title="all events",
             link="https://www.amazon.com/",
             description="New in amazon",
