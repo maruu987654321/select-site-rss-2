@@ -184,7 +184,7 @@ def get_rss_amazon(key_words):
     media = MediaFileUpload('rss_by_keywords_amazon.rss', mimetype='text/plain',resumable=True)
     fili = service.files().create(body=file_metadata, media_body=media, fields='id').execute()        
     with open('templates/rss_by_keywords_amazon.rss', 'w') as fp:
-        feed2.write(fp, 'utf-8')    
+        feed.write(fp, 'utf-8')    
         
 def get_rss_etsy(key_words):
     store = file.Storage('token.json')
@@ -223,7 +223,7 @@ def get_rss_etsy(key_words):
     media = MediaFileUpload('rss_by_keywords_etsy.rss', mimetype='text/plain',resumable=True)
     fili = service.files().create(body=file_metadata, media_body=media, fields='id').execute()         
     with open('templates/rss_by_keywords_etsy.rss', 'w') as fp:
-        feed2.write(fp, 'utf-8')   
+        feed.write(fp, 'utf-8')   
         
 def get_rss_teepublic(key_words):
     store = file.Storage('token.json')
