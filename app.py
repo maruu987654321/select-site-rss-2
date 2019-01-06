@@ -367,25 +367,66 @@ def test():
     key_words = text.split()
     if select == '9gag':
         get_rss_9gag(key_words)
-        rss_xml = render_template('rss_by_keywords_for_9gag.rss')
+        str1 = 'go to /9gag'
     elif select == 'redbubble':
         get_rss_redbubble(key_words)
-        rss_xml = render_template('rss_by_keywords_for_redbubble.rss')
+        str1 =  'go to /redbubble'
     elif select == 'etsy':
         get_rss_etsy(key_words)
-        rss_xml = render_template('rss_by_keywords_etsy.rss')
+        str1 =  'go to /etsy'
     elif select == 'teepublic':
         get_rss_teepublic(key_words)
-        rss_xml = render_template('rss_by_keywords_teepublic.rss')
+        str1 =  'go to /teepublic'
     elif select == 'amazon':
         get_rss_amazon(key_words)
-        rss_xml = render_template('rss_by_keywords_amazon.rss')
+        str1 =  'go to /amazon'
     elif select == 'imgur':
         get_rss_imgur(key_words)
-        rss_xml = render_template('rss_by_keywords_imgur.rss')
+        str1 = 'go to /imgur'
+    return str1
+@app.route("/rss/imgur" , methods=['GET', 'POST'])
+def imgur():
+    rss_xml = render_template('rss_by_keywords_imgur.rss')
     response = make_response(rss_xml)
     response.headers['Content-Type'] = 'application/rss+xml'
     return response
 
+
+@app.route("/rss/9gag" , methods=['GET', 'POST'])
+def gag_func():
+    rss_xml = render_template('rss_by_keywords_for_9gag.rss')
+    response = make_response(rss_xml)
+    response.headers['Content-Type'] = 'application/rss+xml'
+    return response
+
+
+@app.route("/rss/redbubble" , methods=['GET', 'POST'])
+def redbubble():
+    rss_xml = render_template('rss_by_keywords_for_redbubble.rss')
+    response = make_response(rss_xml)
+    response.headers['Content-Type'] = 'application/rss+xml'
+    return response
+
+
+@app.route("/rss/teepublic" , methods=['GET', 'POST'])
+def teepublic():
+    rss_xml = render_template('rss_by_keywords_teepublic.rss')
+    response = make_response(rss_xml)
+    response.headers['Content-Type'] = 'application/rss+xml'
+    return response
+
+@app.route("/rss/amazon" , methods=['GET', 'POST'])
+def amazon():
+    rss_xml = render_template('rss_by_keywords_amazon.rss')
+    response = make_response(rss_xml)
+    response.headers['Content-Type'] = 'application/rss+xml'
+    return response
+
+@app.route("/rss/etsy" , methods=['GET', 'POST'])
+def etsy():
+    rss_xml = render_template('rss_by_keywords_etsy.rss')
+    response = make_response(rss_xml)
+    response.headers['Content-Type'] = 'application/rss+xml'
+    return response
 if __name__=='__main__':
     app.run(debug=True)
