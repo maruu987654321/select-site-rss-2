@@ -59,7 +59,7 @@ def get_rss_redbubble(key_words):
         url_product = []
         result2 = requests.get(j)
         c = result2.content
-        soup = BeautifulSoup(c, 'lxml')
+        soup = BeautifulSoup(c, "html.parser")
         mydivs = soup.findAll("a", {"class": "styles__link--2pzz4"})
         for i in mydivs:
             if contains_wanted(i['title'].lower(), key_words):
@@ -69,7 +69,7 @@ def get_rss_redbubble(key_words):
         for k in url_product:
             result2 = requests.get(k)
             c = result2.content
-            soup = BeautifulSoup(c, 'lxml')
+            soup = BeautifulSoup(c, "html.parser")
             image.append(soup.find("meta",  property="og:image")['content']) 
        
 
@@ -141,7 +141,7 @@ def get_rss_9gag(key_words):
         for key in feed["entries"]: 
             title = key['title']
             url = key['links'][0]['href']
-            soup = BeautifulSoup(key["summary"], 'lxml')
+            soup = BeautifulSoup(key["summary"], "html.parser")
             try:
                 image = soup.find('img')
                 url_image = image['src']
