@@ -1,0 +1,9 @@
+<!doctype html>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+<div class="center-on-page">  
+<h1>Enter twitter username</h1>
+<form class="form-inline" method="POST" action="{{ url_for('test_twitter') }}">
+	<input type="text" name="username" placeholder="Enter username for twitter (like: realDonaldTrump)">
+    <button type="submit" class="btn">Get rss</button>
+  </div>
+</form>

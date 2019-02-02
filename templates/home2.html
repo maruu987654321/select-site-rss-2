@@ -1,0 +1,11 @@
+<body>
+{% for article in articles %}
+<b><a href="{{article.link}}">{{article.title}}</a></b><br />
+<i>{{article.published}}</i><br />
+<b><a href="{{article.summary}}">Link to image</a></b><br />
+<hr />
+{% endfor %}
+</body>
+
+
+
