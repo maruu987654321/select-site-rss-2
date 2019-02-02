@@ -400,7 +400,6 @@ def test():
     elif select == 'redbubble':
         get_rss_redbubble(key_words)
         feed = feedparser.parse('rss_by_keywords_for_redbubble.rss')
-        first_article = feed['entries'][0]
         return render_template("home2.html", articles=feed['entries'])
     elif select == 'etsy':
         get_rss_etsy(key_words)
